@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Vodevel\ApiDocBundleTypeDescriber\Describer;
 
-use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Attribute\Model;
 use Nelmio\ApiDocBundle\OpenApiPhp\Util;
 use Nelmio\ApiDocBundle\RouteDescriber\RouteDescriberInterface;
 use Nelmio\ApiDocBundle\RouteDescriber\RouteDescriberTrait;
@@ -21,7 +21,7 @@ final class ResponseBodyDescriber implements RouteDescriberInterface
     use RouteDescriberTrait;
     use FindClassTrait;
 
-    public function describe(OpenApi $api, Route $route, ReflectionMethod $reflectionMethod)
+    public function describe(OpenApi $api, Route $route, ReflectionMethod $reflectionMethod): void
     {
         if (!$info = $this->findClassFromReturn($reflectionMethod, Response::class)) {
             return;

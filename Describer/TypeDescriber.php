@@ -17,7 +17,7 @@ final class TypeDescriber implements RouteDescriberInterface
     ) {
     }
 
-    public function describe(OpenApi $api, Route $route, ReflectionMethod $reflectionMethod)
+    public function describe(OpenApi $api, Route $route, ReflectionMethod $reflectionMethod): void
     {
         $this->requestDescriber->describe($api, $route, $reflectionMethod);
         $this->responseDescriber->describe($api, $route, $reflectionMethod);

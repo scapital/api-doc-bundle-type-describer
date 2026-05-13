@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Vodevel\ApiDocBundleTypeDescriber\Describer;
 
-use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Attribute\Model;
 use Nelmio\ApiDocBundle\RouteDescriber\RouteDescriberInterface;
 use Nelmio\ApiDocBundle\RouteDescriber\RouteDescriberTrait;
 use OpenApi\Annotations\OpenApi;
@@ -19,7 +19,7 @@ final class RequestBodyDescriber implements RouteDescriberInterface
     use RouteDescriberTrait;
     use FindClassTrait;
 
-    public function describe(OpenApi $api, Route $route, ReflectionMethod $reflectionMethod)
+    public function describe(OpenApi $api, Route $route, ReflectionMethod $reflectionMethod): void
     {
         if (!$info = $this->findClassFromParams($reflectionMethod, AnnotationRequestBody::class)) {
             return;
@@ -38,7 +38,7 @@ final class RequestBodyDescriber implements RouteDescriberInterface
         }
 
         $requestBodyAnnotation = new AttributeRequestBody(
-            request: $operation->path, # TODO: what should be here?
+            request: $operation->method . ' ' . $operation->path, # TODO: what should be here?
             content: new Model(type: $info->class)
         );
 
